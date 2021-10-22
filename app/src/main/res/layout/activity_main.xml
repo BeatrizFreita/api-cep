@@ -9,7 +9,7 @@
         android:id="@+id/editTextCep"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="39dp"
         android:layout_marginTop="40dp"
         android:ems="10"
         android:inputType="textPersonName"
@@ -20,7 +20,7 @@
         android:id="@+id/buttonBuscar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="36dp"
         android:text="Button"
         app:layout_constraintStart_toEndOf="@+id/editTextCep"
@@ -29,8 +29,8 @@
     <TextView
         android:id="@+id/textViewEndereco"
         android:layout_width="333dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="56dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:text="Endereço"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,6 +47,7 @@
         app:layout_constraintEnd_toEndOf="@+id/textViewEndereco"
         app:layout_constraintStart_toStartOf="@+id/textViewEndereco"
         app:layout_constraintTop_toBottomOf="@+id/textViewEndereco" />
+
     <EditText
         android:id="@+id/nomeDaCidade"
         android:layout_width="0dp"
@@ -56,37 +57,35 @@
         android:hint="Nome da Cidade"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="@+id/nameDaRua"
-        app:layout_constraintStart_toStartOf="@+id/nameDaRua"
+        app:layout_constraintStart_toEndOf="@+id/siglaEstado"
         app:layout_constraintTop_toBottomOf="@+id/nameDaRua" />
+
     <EditText
         android:id="@+id/siglaEstado"
-        android:layout_width="0dp"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Sigla do Estado"
+        android:layout_marginTop="8dp"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="@+id/nomeDaCidade"
-        app:layout_constraintStart_toStartOf="@+id/nomeDaCidade"
-        app:layout_constraintTop_toBottomOf="@+id/nomeDaCidade" />
+        app:layout_constraintStart_toStartOf="@+id/nameDaRua"
+        app:layout_constraintTop_toBottomOf="@+id/nameDaRua" />
+
     <Button
         android:id="@+id/buttonBuscarCep"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:text="BUSCAR CEP"
-        app:layout_constraintEnd_toEndOf="@+id/siglaEstado"
-        app:layout_constraintTop_toBottomOf="@+id/siglaEstado" />
-    <TextView
-        android:id="@+id/textViewLis"
-        android:layout_width="0dp"
+        app:layout_constraintEnd_toEndOf="@+id/nomeDaCidade"
+        app:layout_constraintTop_toBottomOf="@+id/nomeDaCidade" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_ceps"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@color/white"
-        android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/siglaEstado"
-        app:layout_constraintStart_toStartOf="@+id/siglaEstado"
-        app:layout_constraintTop_toBottomOf="@+id/buttonBuscarCep" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonBuscarCep"
+        tools:listitem="@layout/ceps_recycler_view_layout"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

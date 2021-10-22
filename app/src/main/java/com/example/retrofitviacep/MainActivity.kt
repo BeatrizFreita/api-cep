@@ -6,6 +6,9 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.retrofitviacep.RetrofitFactory
 import com.example.retrofitviacep.Cep
 import com.example.retrofitviacep.R
@@ -23,6 +26,9 @@ class MainActivity : AppCompatActivity() {
     lateinit var nomeDaCidade: TextView
     lateinit var siglaDoEstado: TextView
     lateinit var textViewLis: TextView
+
+    lateinit var rvCeps: RecyclerView
+    lateinit var cepsAdapter: CepsAdapter
 
 
 
@@ -42,7 +48,7 @@ class MainActivity : AppCompatActivity() {
 
                 override fun onResponse(call: Call<Cep>, response: Response<Cep>) {
                     val cep = response.body()
-                    textViewEndereco.text = cep.toString()
+                     textViewEndereco.text = cep.toString()
                 }
 
                 override fun onFailure(call: Call<Cep>, t: Throwable) {
@@ -54,6 +60,26 @@ class MainActivity : AppCompatActivity() {
         nomeDaRua = findViewById(R.id.nameDaRua)
         nomeDaCidade = findViewById(R.id.nomeDaCidade)
         siglaDoEstado = findViewById(R.id.siglaEstado)
+        buttonCep = findViewById(R.id.buttonBuscarCep)
+
+
+        //Configuração da recycleView
+        //
+        rvCeps = findViewById(R.id.rv_ceps)
+        cepsAdapter = CepsAdapter(this)
+
+        //Deteminar o Layout da RV
+        rvCeps.layoutManager = LinearLayoutManager(
+                this, LinearLayoutManager.VERTICAL, false)
+
+        //Definir o adapter da RV
+        rvCeps.adapter = cepsAdapter
+
+
+        rvCeps.layoutManager = GridLayoutManager(this,2)
+        //Definir o adapter da Rv
+        rvCeps.adapter = cepsAdapter
+
         buttonCep.setOnClickListener {
             val remote = RetrofitFactory().retrofitService()
             val call: Call<List<Cep>> = remote.getCEPByLogradouro(
@@ -64,8 +90,11 @@ class MainActivity : AppCompatActivity() {
 
             call.enqueue(object : Callback<List<Cep>> {
                 override fun onResponse(call: Call<List<Cep>>, response: Response<List<Cep>>) {
-                    val cep = response.body()
-                    textViewLis.text = cep.toString()
+                    val ceps = response.body()
+
+                    cepsAdapter.updateListaCeps(ceps!!)
+
+//                    textViewLis.text = ceps.toString()
 
                 }
 
