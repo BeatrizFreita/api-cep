@@ -1,9 +1,9 @@
 package br.senai.sp.jandira.retrofitviacep
 import com.example.retrofitviacep.Cep
+import com.example.retrofitviacep.Cliente
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
+
 interface RetrofitService {
     //Método que será responsável por chamar a API
     // https://viacep.com.br/ws/06600025/json/
@@ -15,6 +15,9 @@ interface RetrofitService {
         @Path("cidade") cidade: String,
         @Path("logradouro") logradouro: String) : Call<List<Cep>>
 
-    //@POST()
+    @DELETE("ceps/{id}")
+    fun excluir(@Path("id") id: Int)
 
+    @POST("clientes")
+    fun gravarCliente(@Body cliente: Cliente) : Call<Cliente>
 }
